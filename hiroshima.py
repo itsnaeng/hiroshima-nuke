@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """
 # Author: Ryan Lee / Naeng#0001
-# License: Private
+# License: Public
 # Hiroshima Nuke on Servers
 # 1 - Install Pre-req     : sudo apt-get -y update && apt install -y python3.7
 # 2 - Install discord.py  : python3 -m pip install discord.py
